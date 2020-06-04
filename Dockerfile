@@ -1,17 +1,11 @@
-FROM centos:7
+FROM golang:1.12.17
 
 LABEL MAINTAINER="tuyendev@gmail.com"
 
-RUN yum update; yum  -y upgrade; yum -y clean all;
-RUN yum install -y  wget git; yum -y clean all;
-RUN wget https://dl.google.com/go/go1.12.17.linux-amd64.tar.gz -P /tmp
-RUN tar -C /usr/local -xzf /tmp/go1.12.17.linux-amd64.tar.gz
-RUN echo 'export GOROOT=/usr/local/go' | tee -a ~/.bashrc
-RUN echo 'export GOPATH=/go' | tee -a ~/.bashrc
-RUN echo 'export PATH=$GOPATH/bin:$GOROOT/bin:$PATH' | tee -a ~/.bashrc
-RUN echo 'export GO111MODULE=on' | tee -a ~/.bashrc
-RUN source ~/.bashrc
-
+RUN apt update; apt -y upgrade
+RUN mkdir -p /go/src/gopkg.in/mcmturner
+RUN cd /go/src/gopkg.in/mcmturner; git clone https://github.com/jcmturner/gokrb5 gokrb5.v7
+RUN cd /go/src/gopkg.in/mcmturner/gokrb5.v7; git fetch && git fetch --tags; git checkout v7.5.0
 WORKDIR /go/src
 
 CMD [ "bash" ]
