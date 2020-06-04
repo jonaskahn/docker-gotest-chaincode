@@ -8,9 +8,9 @@ RUN tar -C /usr/local -xzf /tmp/go1.12.17.linux-amd64.tar.gz
 RUN echo 'export GOROOT=/usr/local/go' | tee -a ~/.bashrc
 RUN echo 'export PATH=$PATH:/usr/local/go/bin' | tee -a ~/.bashrc
 RUN echo 'export GO111MODULE=on' | tee -a ~/.bashrc
-RUN echo 'export GOPATH=$HOME/go' | tee -a ~/.bashrc
+RUN echo 'export GOPATH=/go' | tee -a ~/.bashrc
 RUN source ~/.bashrc
 
-WORKDIR $HOME/go/src
+WORKDIR /go/src
 
 CMD [ "bash" ]
